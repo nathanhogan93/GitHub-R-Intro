@@ -1,0 +1,39 @@
+---
+title: "Coding_exercises"
+author: "Nathan Hogan"
+date: "2025-10-20"
+output: html_document
+---
+```{r}
+data("knz_bison")
+```
+
+```{r}
+knz_bison
+```
+
+```{r}
+knz_bison <- knz_bison %>%
+  mutate(age = rec_year - animal_yob)
+```
+
+```{r}
+filter_bison_by_weight <- function(weight_threshold) {
+  knz_bison %>%
+    filter(animal_weight > weight_threshold)
+}
+```
+
+```{r}
+bison_clean <- knz_bison %>%
+  drop_na(animal_weight, animal_sex)
+
+ggplot(bison_clean, aes(x = animal_sex, y = animal_weight, fill = animal_sex)) +
+  geom_boxplot() +
+  labs(
+    title = "Bison Weight Distribution by Sex",
+    x = "Bison Sex",
+    y = "Bison Weight"
+  )
+```
+
